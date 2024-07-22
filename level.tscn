@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqt3fprpgbgkm"]
+[gd_scene load_steps=7 format=3 uid="uid://dqt3fprpgbgkm"]
 
+[ext_resource type="Script" path="res://level.gd" id="1_21p8a"]
 [ext_resource type="PackedScene" uid="uid://b2uifuo3ljxvk" path="res://player.tscn" id="1_f7hy6"]
 [ext_resource type="Texture2D" uid="uid://c5kx7wpqgw5nr" path="res://1_Industrial_Tileset_1.png" id="2_6s2we"]
+[ext_resource type="PackedScene" uid="uid://ci85sqk7bfqfd" path="res://smoke_particles.tscn" id="3_cdsv4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bu3lt"]
 texture = ExtResource("2_6s2we")
@@ -383,9 +385,10 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_bu3lt")
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_21p8a")
 
 [node name="Player" parent="." instance=ExtResource("1_f7hy6")]
-position = Vector2(1027, 972)
+position = Vector2(1035, 1103)
 
 [node name="TileMap" type="TileMap" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -399,3 +402,8 @@ rotation = -0.436332
 tile_set = SubResource("TileSet_byq5q")
 format = 2
 layer_0/tile_data = PackedInt32Array(4522044, 0, 0, 4522045, 0, 0, 4587581, 0, 0, 4587582, 0, 0, 4587583, 0, 0, 4522046, 0, 0, 4522047, 0, 0, 4522048, 0, 0, 4587584, 0, 0, 4587585, 0, 0, 4587586, 0, 0, 4587587, 0, 0, 4522050, 0, 0, 4522049, 0, 0, 4522051, 0, 0, 4522052, 0, 0, 4522053, 0, 0, 4522054, 0, 0, 4522055, 0, 0, 4522056, 0, 0, 4522057, 0, 0, 4522058, 0, 0, 4522059, 0, 0, 4522060, 0, 0, 4522061, 0, 0, 4522062, 0, 0, 4587599, 0, 0, 4587600, 0, 0, 4587601, 0, 0, 4587602, 0, 0, 4587603, 0, 0, 4587604, 0, 0, 4587605, 0, 0, 4587606, 0, 0, 4587607, 0, 0, 4587608, 0, 0, 4653144, 0, 0, 4653143, 0, 0, 4653142, 0, 0, 4653141, 0, 0, 4653140, 0, 0, 4653139, 0, 0, 4653138, 0, 0, 4653137, 0, 0, 4653136, 0, 0, 4653135, 0, 0, 4653134, 0, 0, 4587598, 0, 0, 4587597, 0, 0, 4587596, 0, 0, 4587595, 0, 0, 4587594, 0, 0, 4587593, 0, 0, 4587591, 0, 0, 4587590, 0, 0, 4587589, 0, 0, 4587588, 0, 0, 4522043, 0, 0, 6226033, 0, 0, 6226034, 0, 0, 6226035, 0, 0, 6226036, 0, 0, 6226037, 0, 0, 6226038, 0, 0, 6226039, 0, 0, 6226040, 0, 0, 6226041, 0, 0, 6226042, 0, 0, 6226043, 0, 0, 6226044, 0, 0, 6291568, 0, 0, 6291569, 0, 0, 6291570, 0, 0, 6291571, 0, 0, 6291572, 0, 0, 6291573, 0, 0, 6291574, 0, 0, 6291575, 0, 0, 6291576, 0, 0, 6291577, 0, 0, 6291578, 0, 0, 6291579, 0, 0, 6291580, 0, 0, 6226045, 0, 0)
+
+[node name="SmokeParticles" parent="." instance=ExtResource("3_cdsv4")]
+position = Vector2(999, 911)
+
+[connection signal="particles" from="Player" to="SmokeParticles" method="_on_player_particles"]
