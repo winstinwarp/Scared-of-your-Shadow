@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 #Constant values for scene
-const animationSize=.22
+const animationSize=.15
 
 #Tweaking player jump height and distance
-var jump_height: float = 100
+var jump_height: float = 130
 var jump_time_to_peak: float = .5
 var jump_time_to_descend: float = .3
 
@@ -13,7 +13,7 @@ var JUMP_VELOCITY: float = ((2.0* jump_height) / jump_time_to_peak) * -1.0
 var JUMP_GRAVITY: float = ((-2.0 * jump_height) / (jump_time_to_peak*jump_time_to_peak)) *-1.0
 var FALL_GRAVITY: float = ((-2.0*jump_height) / (jump_time_to_descend*jump_time_to_descend))*-1.0
 
-const base_speed = 375
+const base_speed = 415
 
 const Hacceleration = 35
 const friction = 50
@@ -22,18 +22,31 @@ const friction = 50
 
 signal animate(animationName)
 
+signal particles(playerposition)
+
+signal add_trauma(amount)
+
 signal death()
 
 #variables for dive or roll
 var dash: bool = true
-var dash_distance: float = base_speed+100
+var dash_distance: float = base_speed*1
+
+#load in effects
+#var smokeparticles_scene: PackedScene = load("res://smoke_particles.tscn")
+
+#func 
+
+func _ready():
+	$Camera2D.position_smoothing_enabled=false
 
 func _physics_process(delta):
 	#Add animations to running and crouching
 	if is_on_floor():
 
 		if (velocity.x>1 or velocity.x<-1):
-			animate.emit("Walking")
+			animate.emit("Running")
+			pass
 		else:
 			animate.emit("Idle")
 			
@@ -43,8 +56,8 @@ func _physics_process(delta):
 		#create_tween().tween_property($PlayerCollision, 'scale', Vector2(1,.75), .1)				#Move collision box and resize to fit jumping/falling animations
 		#create_tween().tween_property($PlayerCollision, 'position', Vector2(0,-8), .1)
 		
-		#if velocity.y>0:
-		#	animate.emit("Falling")
+		if velocity.y>0:
+			animate.emit("Falling")
 		
 
 	# Get the input direction and handle the movement/deceleration.
@@ -69,20 +82,22 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		velocity.x = direction * base_speed*1.5
-		animate.emit("InitiateJumpingRight")
+		animate.emit("InitiateJumping")
 		
 	# Movement dash
 	if Input.is_action_pressed("dash"):
 		if Input.is_action_just_pressed("dash") and dash==true and (velocity.x>0 or velocity.x<0):						#checks if player can dive
 			if $DashArea.has_overlapping_bodies()==false:
-				animate.emit("Dash")
-				freeze_frame(0.1, .75)
+				animate.emit("Falling")
+				particles.emit($".".global_position)
+				add_trauma.emit(.225)
+				freeze_frame(0.1, .5)
+				await(.5)
 				$Animation.visible=false
 				position.x = $DashArea/DashCollision.global_position.x
 				#velocity.x = direction * dash_distance * 2
 				$DashTimer.start()
 				dash=false
-
 
 	move_and_slide()
 
