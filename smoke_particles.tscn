@@ -1,19 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci85sqk7bfqfd"]
+[gd_scene load_steps=4 format=3 uid="uid://ci85sqk7bfqfd"]
 
 [ext_resource type="Script" path="res://smoke_particles.gd" id="1_iqs4c"]
 
 [sub_resource type="Gradient" id="Gradient_2juxd"]
 offsets = PackedFloat32Array(0.666667, 1)
 
+[sub_resource type="Gradient" id="Gradient_oplh2"]
+offsets = PackedFloat32Array(0.685832, 1)
+
 [node name="SmokeParticles" type="Node2D"]
 script = ExtResource("1_iqs4c")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="SmokeCloud" type="CPUParticles2D" parent="."]
 texture_filter = 1
 emitting = false
 amount = 20
 one_shot = true
-speed_scale = 1.5
 explosiveness = 0.9
 randomness = 0.5
 lifetime_randomness = 0.5
@@ -24,9 +26,9 @@ spread = 180.0
 gravity = Vector2(0, -10)
 initial_velocity_min = 25.0
 initial_velocity_max = 75.0
-angular_velocity_min = 1.0
+angular_velocity_min = -10.0
 angular_velocity_max = 10.0
-orbit_velocity_min = 0.01
+orbit_velocity_min = -0.1
 orbit_velocity_max = 0.1
 damping_min = 50.0
 damping_max = 75.0
@@ -35,6 +37,34 @@ scale_amount_max = 10.0
 split_scale = true
 scale_curve_x = null
 scale_curve_y = null
-color = Color(0, 0, 0, 1)
+color = Color(0.270222, 0.270222, 0.270222, 1)
 color_ramp = SubResource("Gradient_2juxd")
 hue_variation_max = 1.0
+
+[node name="SmokeTrail" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 10
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.7
+randomness = 0.26
+lifetime_randomness = 0.49
+emission_shape = 3
+emission_rect_extents = Vector2(50, 50)
+particle_flag_align_y = true
+spread = 3.37
+gravity = Vector2(0, 0)
+initial_velocity_min = 375.0
+initial_velocity_max = 430.0
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+linear_accel_min = -10.0
+linear_accel_max = 10.0
+radial_accel_min = -15.0
+radial_accel_max = 15.0
+damping_min = 19.101
+damping_max = 48.315
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(0.270588, 0.270588, 0.270588, 1)
+color_ramp = SubResource("Gradient_oplh2")
