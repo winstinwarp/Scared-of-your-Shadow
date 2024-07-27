@@ -1,17 +1,51 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2uifuo3ljxvk"]
+[gd_scene load_steps=10 format=3 uid="uid://b2uifuo3ljxvk"]
 
 [ext_resource type="PackedScene" uid="uid://dgutgy8a7yc44" path="res://animation.tscn" id="1_2kleb"]
 [ext_resource type="Script" path="res://player.gd" id="1_6cpi3"]
 [ext_resource type="Script" path="res://CameraShake.gd" id="3_7hf1p"]
 
+[sub_resource type="Gradient" id="Gradient_1uskc"]
+offsets = PackedFloat32Array(0.480493, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2kgi1"]
 size = Vector2(32, 140)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdf4l"]
-size = Vector2(32, 128)
+size = Vector2(32, 106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcm4t"]
+size = Vector2(18.8209, 16.3672)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1vty1"]
+size = Vector2(32, 106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnn4g"]
+size = Vector2(32, 106)
 
 [node name="Player" type="CharacterBody2D"]
+floor_snap_length = 5.0
 script = ExtResource("1_6cpi3")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 6
+speed_scale = 0.5
+explosiveness = 0.25
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 3
+emission_rect_extents = Vector2(10, 50)
+spread = 180.0
+gravity = Vector2(0, 10)
+initial_velocity_max = 30.0
+angular_velocity_min = -10.0
+angular_velocity_max = 10.0
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+damping_max = 10.0
+scale_amount_min = 3.0
+scale_amount_max = 7.0
+color = Color(0.0253638, 0.0253638, 0.0253638, 1)
+color_ramp = SubResource("Gradient_1uskc")
 
 [node name="Animation" parent="." instance=ExtResource("1_2kleb")]
 scale = Vector2(0.15, 0.15)
@@ -32,15 +66,48 @@ drag_right_margin = 0.1
 script = ExtResource("3_7hf1p")
 
 [node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.7
+
+[node name="InvisibilityTimer" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 
 [node name="DashArea" type="Area2D" parent="."]
 position = Vector2(0, 74)
 
 [node name="DashCollision" type="CollisionShape2D" parent="DashArea"]
-position = Vector2(-1, -73)
+position = Vector2(-1, -84)
 shape = SubResource("RectangleShape2D_hdf4l")
+debug_color = Color(0.920303, 0.276532, 0.127905, 0.42)
+
+[node name="DashAreaFar" type="Area2D" parent="."]
+
+[node name="DashFarCollision" type="CollisionShape2D" parent="DashAreaFar"]
+position = Vector2(-0.997448, -10)
+rotation = -3.14159
+scale = Vector2(1.70051, -6.47636)
+shape = SubResource("RectangleShape2D_xcm4t")
+debug_color = Color(0.921569, 0.278431, 0.129412, 0.419608)
+
+[node name="DashAreaNear" type="Area2D" parent="."]
+
+[node name="DashNearCollision" type="CollisionShape2D" parent="DashAreaNear"]
+position = Vector2(-1, -10)
+shape = SubResource("RectangleShape2D_1vty1")
+debug_color = Color(0.921569, 0.278431, 0.129412, 0.419608)
+
+[node name="DashAreaHigh" type="Area2D" parent="."]
+
+[node name="DashHighCollision" type="CollisionShape2D" parent="DashAreaHigh"]
+position = Vector2(-1, -10)
+shape = SubResource("RectangleShape2D_vnn4g")
+debug_color = Color(0.921569, 0.278431, 0.129412, 0.419608)
 
 [connection signal="add_trauma" from="." to="Camera2D" method="_on_player_add_trauma"]
 [connection signal="animate" from="." to="Animation" method="_on_player_animate"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="InvisibilityTimer" to="." method="_on_invisibility_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

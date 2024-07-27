@@ -12,3 +12,9 @@ extends Node2D
 	#switch to main branch: git checkout main
 	#check status: git status
 	#pull changes: git pull
+
+#func _ready():
+#	for i in $Enemies.get_child_count():
+#		get_children()[i].connect("kill", $Player, "_on_human_enemy_kill")
+#		print(i+1)
+	
