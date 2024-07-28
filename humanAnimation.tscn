@@ -51,7 +51,7 @@ tracks/0/path = NodePath("CharacterContainer/IKTargets/TargetHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.2, 1.2, 1.6, 1.9, 2.1, 2.2),
+"times": PackedFloat32Array(0.2, 1.2, 1.5, 1.7, 1.9, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-17, -361), Vector2(-17, -361), Vector2(-336, -317), Vector2(-336, -317), Vector2(-555, -155), Vector2(-612, -41)]
@@ -63,7 +63,7 @@ tracks/1/path = NodePath("CharacterContainer/IKTargets/TargetTorso:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 1.2, 1.6, 1.9, 2.1, 2.2),
+"times": PackedFloat32Array(0.2, 1.2, 1.5, 1.7, 1.9, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, -7), Vector2(1, -7), Vector2(-18, 5), Vector2(-57, 114), Vector2(-57, 114), Vector2(-57, 114)]
@@ -75,19 +75,19 @@ tracks/2/path = NodePath("CharacterContainer/IKTargets/TargetTorso:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.2, 1.2, 1.6, 1.9, 2.1, 2.2),
+"times": PackedFloat32Array(0.2, 1.2, 1.5, 1.7, 1.9, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, -0.879646, -1.20218, -1.41721, -1.5708]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("CharacterContainer/IKTargets/TargetRLeg:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.2, 1.2, 1.9, 2.1, 2.2),
+"times": PackedFloat32Array(0.2, 1.2, 1.7, 1.9, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-31.0038, 187.07), Vector2(-31.0038, 187.07), Vector2(69.9962, 175.07), Vector2(92.9962, 156.07), Vector2(125.996, 167.07)]
@@ -99,10 +99,10 @@ tracks/4/path = NodePath("CharacterContainer/IKTargets/TargetLArm:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.6, 0.9, 1.2, 1.9, 2.1, 2.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 1.2, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(80.9962, -142.93), Vector2(31.9962, -177.93), Vector2(32.9962, -173.93), Vector2(-164.004, -102.93), Vector2(-102, 12), Vector2(-75, 127)]
+"values": [Vector2(80.9962, -142.93), Vector2(31.9962, -177.93), Vector2(32.9962, -173.93), Vector2(-75, 127)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -111,19 +111,19 @@ tracks/5/path = NodePath("CharacterContainer/IKTargets/TargetRArm:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.2, 1.2, 1.6, 1.9, 2.1, 2.2),
+"times": PackedFloat32Array(0.2, 1.2, 1.5, 1.7, 1.9, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(103.996, -142.93), Vector2(103.996, -142.93), Vector2(2, -50), Vector2(-62, 42), Vector2(-74, 117), Vector2(-61, 135)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
-tracks/6/enabled = true
+tracks/6/enabled = false
 tracks/6/path = NodePath("CharacterContainer/IKTargets/TargetLLeg:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.2, 1.2, 1.6, 1.9, 2.1, 2.2),
+"times": PackedFloat32Array(0.2, 1.2, 1.5, 1.7, 1.9, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(25.9962, 182.07), Vector2(25.9962, 182.07), Vector2(-7.00377, 146.07), Vector2(41.9962, 155.07), Vector2(40.9962, 152.07), Vector2(56.9962, 164.07)]
@@ -416,21 +416,22 @@ position = Vector2(24, 0)
 
 [node name="Hips" type="Sprite2D" parent="CharacterContainer/Body"]
 self_modulate = Color(0.219501, 0.219501, 0.219501, 1)
-position = Vector2(-28, -8)
+position = Vector2(-81.5144, 133.597)
+rotation = -1.20934
 texture = ExtResource("2_se132")
 offset = Vector2(27, -7)
 
 [node name="Torso" type="Sprite2D" parent="CharacterContainer/Body/Hips"]
 self_modulate = Color(0.20871, 0.20871, 0.20871, 1)
-position = Vector2(-1, -4)
+position = Vector2(-1, -4.00002)
 texture = ExtResource("3_fb2ph")
 offset = Vector2(27, -7)
 
 [node name="Head" type="Sprite2D" parent="CharacterContainer/Body/Hips/Torso"]
 self_modulate = Color(0.239216, 0.239216, 0.239216, 1)
-position = Vector2(100.02, -20.6283)
-rotation = -0.603239
-scale = Vector2(0.999849, 0.999849)
+position = Vector2(171.062, -94.1196)
+rotation = -1.20922
+scale = Vector2(0.999844, 0.999844)
 texture = ExtResource("25_wag5d")
 offset = Vector2(27, -7)
 
@@ -451,8 +452,8 @@ texture = ExtResource("26_jpkkj")
 [node name="Feather" type="Sprite2D" parent="CharacterContainer/Body/Hips/Torso/Head/Hat"]
 self_modulate = Color(0.295867, 0.295866, 0.295866, 1)
 show_behind_parent = true
-position = Vector2(-52.5239, -0.31102)
-rotation = 0.256036
+position = Vector2(-79.6171, -9.79074)
+rotation = 0.425743
 scale = Vector2(0.999836, 0.999836)
 texture = ExtResource("27_xgxxx")
 
@@ -467,17 +468,17 @@ texture = ExtResource("29_8ibkh")
 
 [node name="BicepR" type="Sprite2D" parent="CharacterContainer/Body/Hips/Torso"]
 self_modulate = Color(0.27451, 0.27451, 0.27451, 1)
-position = Vector2(127.238, -138.85)
-rotation = -1.37193
-scale = Vector2(0.999842, 0.999842)
+position = Vector2(108.184, -73.581)
+rotation = -0.912988
+scale = Vector2(0.999841, 0.999841)
 texture = ExtResource("30_nr51j")
 offset = Vector2(27, -7)
 
 [node name="ForearmR" type="Sprite2D" parent="CharacterContainer/Body/Hips/Torso/BicepR"]
 self_modulate = Color(0.27451, 0.27451, 0.27451, 1)
-position = Vector2(8.19756, -9.06554)
-rotation = -0.124065
-scale = Vector2(0.999842, 0.999842)
+position = Vector2(-40.4571, 8.20093)
+rotation = 0.457317
+scale = Vector2(0.999841, 0.999841)
 texture = ExtResource("31_h1dlb")
 offset = Vector2(27, -7)
 
@@ -489,7 +490,7 @@ offset = Vector2(27, -7)
 [node name="Lantern" type="Sprite2D" parent="CharacterContainer/Body/Hips/Torso/BicepR/ForearmR/HandR"]
 self_modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
-position = Vector2(-0.230568, 91.0594)
+position = Vector2(-0.230591, 91.0594)
 rotation = 1.60145
 scale = Vector2(0.999829, 0.999829)
 texture = ExtResource("33_5ixnr")
@@ -507,17 +508,17 @@ texture = ExtResource("22_ns5sn")
 [node name="BicepL" type="Sprite2D" parent="CharacterContainer/Body/Hips/Torso"]
 modulate = Color(0.18359, 0.18359, 0.18359, 1)
 show_behind_parent = true
-position = Vector2(-40.3012, -29.0053)
-rotation = 0.374012
-scale = Vector2(0.999847, 0.999847)
+position = Vector2(31.6936, -2.28234)
+rotation = -0.211828
+scale = Vector2(0.999841, 0.999841)
 texture = ExtResource("33_2bs68")
 offset = Vector2(27, -7)
 
 [node name="ForearmL" type="Sprite2D" parent="CharacterContainer/Body/Hips/Torso/BicepL"]
 show_behind_parent = true
-position = Vector2(27.9719, -152.33)
-rotation = 2.3223
-scale = Vector2(0.999851, 0.999851)
+position = Vector2(36.0493, -153.881)
+rotation = 2.41729
+scale = Vector2(0.999846, 0.999846)
 texture = ExtResource("34_s1o5r")
 offset = Vector2(27, -7)
 
@@ -527,17 +528,17 @@ offset = Vector2(27, -7)
 
 [node name="QuadR" type="Sprite2D" parent="CharacterContainer/Body/Hips"]
 modulate = Color(0.147672, 0.147672, 0.147672, 1)
-position = Vector2(-6.99397, 0.0050621)
-rotation = -0.0663395
-scale = Vector2(0.999859, 0.999859)
+position = Vector2(-21.1486, -3.27584)
+rotation = -1.08749
+scale = Vector2(0.999861, 0.999861)
 texture = ExtResource("36_ws5ac")
 offset = Vector2(27, -7)
 region_rect = Rect2(0, -8, 512, 456)
 
 [node name="ShinR" type="Sprite2D" parent="CharacterContainer/Body/Hips/QuadR"]
-position = Vector2(-48.6841, 154.43)
-rotation = 0.0417234
-scale = Vector2(0.999845, 0.999845)
+position = Vector2(-12.083, 56.5523)
+rotation = 2.64496
+scale = Vector2(0.999846, 0.999846)
 texture = ExtResource("37_nbm6m")
 offset = Vector2(27, -7)
 region_enabled = true
@@ -550,16 +551,16 @@ offset = Vector2(27, -7)
 
 [node name="QuadL" type="Sprite2D" parent="CharacterContainer/Body/Hips"]
 modulate = Color(0.176419, 0.176419, 0.176419, 1)
-position = Vector2(2.53491, 9.9825)
-rotation = -0.179604
-scale = Vector2(0.999845, 0.999845)
+position = Vector2(-1.3257, 19.2889)
+rotation = -0.5161
+scale = Vector2(0.999847, 0.999847)
 texture = ExtResource("39_00myc")
 offset = Vector2(27, -7)
 
 [node name="ShinL" type="Sprite2D" parent="CharacterContainer/Body/Hips/QuadL"]
-position = Vector2(8.85414, -4.04654)
-rotation = 0.0487971
-scale = Vector2(0.999828, 0.999828)
+position = Vector2(147.175, 104.445)
+rotation = 1.75249
+scale = Vector2(0.999832, 0.999832)
 texture = ExtResource("40_c2hd5")
 offset = Vector2(27, -7)
 
@@ -574,7 +575,8 @@ visible = false
 modification_stack = SubResource("SkeletonModificationStack2D_1t7by")
 
 [node name="Hip" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D"]
-position = Vector2(-25, 8)
+position = Vector2(-65.4873, 136.449)
+rotation = -1.20934
 rest = Transform2D(1, 0, 0, 1, -24, 0)
 
 [node name="Torso" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip"]
@@ -583,14 +585,14 @@ rest = Transform2D(1, 0, 0, 1, 5, -164)
 
 [node name="ShoulderR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/Torso"]
 position = Vector2(-31, -3)
-rotation = -1.61395
-scale = Vector2(0.999842, 0.999842)
+rotation = -1.155
+scale = Vector2(0.999841, 0.999841)
 rest = Transform2D(-0.0383681, -0.999093, 0.999093, -0.0383681, -31, -3)
 
 [node name="ElbowR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/Torso/ShoulderR"]
 position = Vector2(-38.6665, 58.6221)
-rotation = 0.307646
-scale = Vector2(0.999842, 0.999842)
+rotation = 0.889028
+scale = Vector2(0.999841, 0.999841)
 rest = Transform2D(0.978177, 0.206999, -0.206999, 0.978177, -38.6665, 58.6221)
 
 [node name="WristR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/Torso/ShoulderR/ElbowR"]
@@ -620,14 +622,14 @@ remote_path = NodePath("../../../../../../Body/Hips/Torso/BicepR")
 
 [node name="ShoulderL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/Torso"]
 position = Vector2(31, 9)
-rotation = 1.01695
-scale = Vector2(0.999847, 0.999847)
+rotation = 0.431111
+scale = Vector2(0.999841, 0.999841)
 rest = Transform2D(0.636227, 0.771325, -0.771325, 0.636227, 31, 9)
 
 [node name="ElbowL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/Torso/ShoulderL"]
 position = Vector2(45.7532, 40.5539)
-rotation = 0.477915
-scale = Vector2(0.99985, 0.99985)
+rotation = 0.572906
+scale = Vector2(0.999846, 0.999846)
 rest = Transform2D(0.998668, 0.0480913, -0.0480913, 0.998668, 45.7532, 40.5539)
 
 [node name="WristL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/Torso/ShoulderL/ElbowL"]
@@ -646,8 +648,8 @@ remote_path = NodePath("../../../../../../Body/Hips/Torso/BicepL")
 
 [node name="Neck" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/Torso"]
 position = Vector2(9, -27)
-rotation = 0.00477449
-scale = Vector2(0.999849, 0.999849)
+rotation = -0.601208
+scale = Vector2(0.999844, 0.999844)
 rest = Transform2D(0.999827, 0.00756712, -0.00756712, 0.999827, 9, -27)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/Torso/Neck"]
@@ -671,14 +673,14 @@ remote_path = NodePath("../../../../../Body/Hips/Torso")
 
 [node name="HipR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip"]
 position = Vector2(-20, -5)
-rotation = -0.0663395
-scale = Vector2(0.999859, 0.999859)
+rotation = -1.08749
+scale = Vector2(0.999861, 0.999861)
 rest = Transform2D(0.877237, -0.479729, 0.479729, 0.877237, -20, -5)
 
 [node name="LegR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/HipR"]
 position = Vector2(-6.16811, 100.231)
-rotation = 0.0417234
-scale = Vector2(0.999845, 0.999845)
+rotation = 2.64496
+scale = Vector2(0.999846, 0.999846)
 rest = Transform2D(0.978931, 0.203493, -0.203493, 0.978931, -6.16811, 100.231)
 
 [node name="ShinR" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/HipR/LegR"]
@@ -695,14 +697,14 @@ remote_path = NodePath("../../../../../Body/Hips/QuadR")
 
 [node name="HipL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip"]
 position = Vector2(25, 10)
-rotation = -0.258374
-scale = Vector2(0.999845, 0.999845)
+rotation = -0.59487
+scale = Vector2(0.999847, 0.999847)
 rest = Transform2D(0.956939, 0.289746, -0.289746, 0.956939, 25, 10)
 
 [node name="LegL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/HipL"]
 position = Vector2(1.19957, 90.793)
-rotation = 0.127567
-scale = Vector2(0.999828, 0.999828)
+rotation = 1.83126
+scale = Vector2(0.999831, 0.999831)
 rest = Transform2D(0.967443, 0.252486, -0.252486, 0.967443, 1.19957, 90.793)
 
 [node name="ShinL" type="Bone2D" parent="CharacterContainer/Bones/Skeleton2D/Hip/HipL/LegL"]

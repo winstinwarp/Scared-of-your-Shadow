@@ -14,6 +14,7 @@ script = ExtResource("1_v2lot")
 
 [node name="LightArea" type="Area2D" parent="."]
 position = Vector2(485, -90)
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LightArea"]
 position = Vector2(0, 16.5)
