@@ -155,7 +155,12 @@ func freeze_frame(timeScale, duration):
 
 func _on_human_enemy_kill():
 	dead_player()
-
+	print("death by enemy")
+	
+func _on_kill_box_kill():
+	dead_player()
+	print("death by kill box")
+	
 func dead_player():
 	$".".visible=false
 	$DashArea.global_position.x=$".".global_position.x
@@ -167,3 +172,6 @@ func dead_player():
 
 func _on_checkpoint_pos(checkpos):
 	checkpointPosition=checkpos
+
+
+

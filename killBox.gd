@@ -7,4 +7,5 @@ func _ready():
 
 
 func _on_kill_area_body_entered(body):
-	get_tree().dead_player()
+	if body.name=="Player":
+		kill.emit()

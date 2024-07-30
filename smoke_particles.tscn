@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ci85sqk7bfqfd"]
+[gd_scene load_steps=5 format=3 uid="uid://ci85sqk7bfqfd"]
 
 [ext_resource type="Script" path="res://smoke_particles.gd" id="1_iqs4c"]
+[ext_resource type="AudioStream" uid="uid://ycyxilfsdwf0" path="res://Audio/WhooshSound.wav" id="2_r6gdm"]
 
 [sub_resource type="Gradient" id="Gradient_2juxd"]
 offsets = PackedFloat32Array(0.666667, 1)
@@ -68,3 +69,7 @@ scale_amount_min = 4.0
 scale_amount_max = 8.0
 color = Color(0.270588, 0.270588, 0.270588, 1)
 color_ramp = SubResource("Gradient_oplh2")
+
+[node name="WhooshSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_r6gdm")
+volume_db = -11.0
