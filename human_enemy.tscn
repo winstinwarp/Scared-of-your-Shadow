@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcdiuwfvefmwq"]
+[gd_scene load_steps=6 format=3 uid="uid://bcdiuwfvefmwq"]
 
 [ext_resource type="PackedScene" uid="uid://cxx6lax7bfo1f" path="res://humanAnimation.tscn" id="1_uww4r"]
 [ext_resource type="Script" path="res://human_enemy.gd" id="1_v2lot"]
+[ext_resource type="PackedScene" uid="uid://ci85sqk7bfqfd" path="res://smoke_particles.tscn" id="3_uuw40"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkq4r"]
 size = Vector2(969, 283)
@@ -14,11 +15,16 @@ script = ExtResource("1_v2lot")
 
 [node name="LightArea" type="Area2D" parent="."]
 position = Vector2(485, -90)
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LightArea"]
 position = Vector2(0, 16.5)
 shape = SubResource("RectangleShape2D_mkq4r")
 debug_color = Color(0.687323, 0.499645, 3.85046e-07, 0.42)
+
+[node name="SmokeParticles" parent="." instance=ExtResource("3_uuw40")]
+modulate = Color(0.0562916, 0.0562916, 0.0562916, 1)
+scale = Vector2(2.5, 2.5)
 
 [node name="HumanAnimation" parent="." instance=ExtResource("1_uww4r")]
 
@@ -33,6 +39,7 @@ wait_time = 0.5
 one_shot = true
 
 [connection signal="animate" from="." to="HumanAnimation" method="_on_human_enemy_animate"]
+[connection signal="death" from="." to="SmokeParticles" method="_on_player_particles"]
 [connection signal="flicker" from="." to="HumanAnimation" method="_on_human_enemy_flicker"]
 [connection signal="body_entered" from="LightArea" to="." method="_on_light_area_body_entered"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

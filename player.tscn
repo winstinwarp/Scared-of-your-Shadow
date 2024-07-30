@@ -23,6 +23,7 @@ size = Vector2(32, 106)
 size = Vector2(32, 106)
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 255
 floor_snap_length = 5.0
 script = ExtResource("1_6cpi3")
 

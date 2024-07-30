@@ -63,8 +63,8 @@ func move(delta):
 
 
 func _on_direction_timer_timeout():
-	$DirectionTimer.wait_time = choose([directionTimeAvg-.5, directionTimeAvg, directionTimeAvg+.5])
 	if !is_human_chase and is_searching and can_change_direction and random_direction:
+		$DirectionTimer.wait_time = choose([directionTimeAvg-.5, directionTimeAvg, directionTimeAvg+.5])
 		velocity.x = 0
 		direction = choose([1,-1])													#choose right or left direction based on choose function
 		is_searching=false
@@ -73,7 +73,7 @@ func _on_direction_timer_timeout():
 		direction=-pastdirection
 		is_searching=false
 	elif !is_human_chase and !is_searching and can_change_direction:
-		$DirectionTimer.wait_time = choose([directionTimeAvg-2, directionTimeAvg-1, directionTimeAvg])
+		$DirectionTimer.wait_time = directionTimeAvg
 		velocity.x = 0
 		pastdirection=direction
 		direction=0
@@ -112,10 +112,10 @@ func _on_player_particles(playerposition, dashposition):
 	$LightArea/CollisionShape2D.disabled=true
 	flickerstate=true
 	flicker.emit(flickerstate)
-	if playerposition.x>$".".global_position.x and $".".global_position.x>dashposition.x and playerposition.y>$".".global_position.y-200 and !dead: 		#if enemy is in between dash position and player
+	if playerposition.x>$".".global_position.x and $".".global_position.x>dashposition.x and playerposition.y>$".".global_position.y-200 and playerposition.y<$".".global_position.y+200 and !dead: 		#if enemy is in between dash position and player
 		dead=true
 		death.emit($".".global_position, playerposition)
-	elif playerposition.x<$".".global_position.x and $".".global_position.x<dashposition.x and playerposition.y>$".".global_position.y-200 and !dead:
+	elif playerposition.x<$".".global_position.x and $".".global_position.x<dashposition.x and playerposition.y>$".".global_position.y-200 and playerposition.y<$".".global_position.y+200 and !dead:
 		dead=true
 		death.emit($".".global_position, playerposition)
 

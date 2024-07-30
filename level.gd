@@ -18,3 +18,5 @@ extends Node2D
 #		get_children()[i].connect("kill", $Player, "_on_human_enemy_kill")
 #		print(i+1)
 	
+func _on_audio_stream_player_finished():
+	$BackgroundMusic.play()
