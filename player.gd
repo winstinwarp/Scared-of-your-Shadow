@@ -30,14 +30,16 @@ signal add_trauma(amount)
 
 signal death()
 
+signal respawn()
+
 #variables for dive or roll
 var dash: bool = true
 var dash_distance: float = base_speed*1
 
 var platform: bool = true
-var platform_position1: float = 0
-var platform_position2: float = base_speed*1
-var platform_position3: float = base_speed*1.5
+var platform_position1: float = 50
+var platform_position2: float = base_speed*.5
+var platform_position3: float = base_speed*1
 var platform_position: float
 
 var dead: bool = false
@@ -50,7 +52,6 @@ func _ready():
 	$Camera2D.enabled=true
 	$Camera2D.position_smoothing_enabled=false
 	$".".visible=true
-	
 	
 	#connect signals
 	
@@ -139,10 +140,9 @@ func _physics_process(delta):
 				call_platform.emit($PlatformArea2/PlatformAreaShape.global_position)
 			elif $PlatformArea3.has_overlapping_bodies()==false:
 				call_platform.emit($PlatformArea3/PlatformAreaShape.global_position)
-
-		if !platform_position==platform_position3*2:													#if there are any openings, emit the call for the platform to change positions
+			
 			$PlatformTimer.start()
-			platform_position=false
+			platform=false
 		
 			
 
@@ -187,8 +187,7 @@ func _on_kill_box_kill():
 	
 func dead_player():
 	$".".visible=false
-	$DashArea.global_position.x=$".".global_position.x
-	particles.emit($".".global_position, $DashArea.global_position)
+	particles.emit($".".global_position, $".".global_position)
 	base_speed = 0
 	jump_height = 0
 	add_trauma.emit(.5)

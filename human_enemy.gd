@@ -21,6 +21,7 @@ signal kill(killPlayer)
 
 var gravity = 1000
 var direction: int = 1
+var initialdirection: int = -1
 var pastdirection: int = 1
 
 @export var directionTimeAvg: float												#around 5-6 seconds depending on area covering
@@ -35,6 +36,7 @@ func _ready():
 	add_to_group("Enemies")
 	if flipped:
 		direction=-direction
+		initialdirection=1
 	$DirectionTimer.start()
 	$CollisionShape2D.disabled=false
 	
@@ -60,6 +62,7 @@ func move(delta):
 		is_roaming = true
 	elif dead:
 		velocity.x=0
+		$DirectionTimer.stop()
 	
 		
 
@@ -89,6 +92,16 @@ func _on_light_flicker_timer_timeout():
 		$LightArea/CollisionShape2D.disabled=false
 		flickerstate=false
 		flicker.emit(flickerstate)
+		
+func _on_death_timer_timeout():
+	if dead:
+		$CollisionShape2D.disabled=false
+		position=startingPosition
+		gravity = 1000
+		direction=initialdirection
+		$DirectionTimer.start()
+		dead=false
+		$LightArea/CollisionShape2D.disabled=false
 
 
 func handle_animation():
@@ -116,12 +129,18 @@ func _on_player_particles(playerposition, dashposition):
 	$LightArea/CollisionShape2D.disabled=true
 	flickerstate=true
 	flicker.emit(flickerstate)
-	if playerposition.x>$".".global_position.x and $".".global_position.x>dashposition.x and playerposition.y>$".".global_position.y-90 and playerposition.y<$".".global_position.y+90 and !dead: 		#if enemy is in between dash position and player
+	if playerposition.x>$".".global_position.x and $".".global_position.x>dashposition.x and playerposition.y>$".".global_position.y-110 and playerposition.y<$".".global_position.y+110 and !dead: 		#if enemy is in between dash position and player
 		dead=true
 		death.emit($".".global_position, playerposition)
-	elif playerposition.x<$".".global_position.x and $".".global_position.x<dashposition.x and playerposition.y>$".".global_position.y-90 and playerposition.y<$".".global_position.y+90 and !dead:
+	elif playerposition.x<$".".global_position.x and $".".global_position.x<dashposition.x and playerposition.y>$".".global_position.y-110 and playerposition.y<$".".global_position.y+110 and !dead:
 		dead=true
 		death.emit($".".global_position, playerposition)
+	elif playerposition.x==dashposition.x:										#Respawn when player dies
+		if dead:
+			$DeathTimer.start()
+			print("player position: ", playerposition)
+			print("dash position: ", dashposition)
+
 
 
 func _on_light_area_body_entered(body):

@@ -38,9 +38,14 @@ shape = SubResource("RectangleShape2D_o77fc")
 wait_time = 0.5
 one_shot = true
 
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="animate" from="." to="HumanAnimation" method="_on_human_enemy_animate"]
 [connection signal="death" from="." to="SmokeParticles" method="_on_player_particles"]
 [connection signal="flicker" from="." to="HumanAnimation" method="_on_human_enemy_flicker"]
 [connection signal="body_entered" from="LightArea" to="." method="_on_light_area_body_entered"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="timeout" from="LightFlickerTimer" to="." method="_on_light_flicker_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
