@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2uifuo3ljxvk"]
+[gd_scene load_steps=11 format=3 uid="uid://b2uifuo3ljxvk"]
 
 [ext_resource type="PackedScene" uid="uid://dgutgy8a7yc44" path="res://animation.tscn" id="1_2kleb"]
 [ext_resource type="Script" path="res://player.gd" id="1_6cpi3"]
@@ -21,6 +21,9 @@ size = Vector2(32, 106)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnn4g"]
 size = Vector2(32, 106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ffly"]
+size = Vector2(200, 20)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 255
@@ -69,6 +72,9 @@ script = ExtResource("3_7hf1p")
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.7
 
+[node name="PlatformTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [node name="InvisibilityTimer" type="Timer" parent="."]
 wait_time = 0.2
 
@@ -107,8 +113,27 @@ position = Vector2(-1, -10)
 shape = SubResource("RectangleShape2D_vnn4g")
 debug_color = Color(0.921569, 0.278431, 0.129412, 0.419608)
 
+[node name="PlatformArea1" type="Area2D" parent="."]
+
+[node name="PlatformAreaShape" type="CollisionShape2D" parent="PlatformArea1"]
+position = Vector2(0, 88)
+shape = SubResource("RectangleShape2D_5ffly")
+
+[node name="PlatformArea2" type="Area2D" parent="."]
+
+[node name="PlatformAreaShape" type="CollisionShape2D" parent="PlatformArea2"]
+position = Vector2(0, 88)
+shape = SubResource("RectangleShape2D_5ffly")
+
+[node name="PlatformArea3" type="Area2D" parent="."]
+
+[node name="PlatformAreaShape" type="CollisionShape2D" parent="PlatformArea3"]
+position = Vector2(0, 88)
+shape = SubResource("RectangleShape2D_5ffly")
+
 [connection signal="add_trauma" from="." to="Camera2D" method="_on_player_add_trauma"]
 [connection signal="animate" from="." to="Animation" method="_on_player_animate"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="PlatformTimer" to="." method="_on_platform_timer_timeout"]
 [connection signal="timeout" from="InvisibilityTimer" to="." method="_on_invisibility_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

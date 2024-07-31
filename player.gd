@@ -24,6 +24,8 @@ signal animate(animationName)
 
 signal particles(playerposition, dashposition)
 
+signal call_platform(platformposition)
+
 signal add_trauma(amount)
 
 signal death()
@@ -31,6 +33,12 @@ signal death()
 #variables for dive or roll
 var dash: bool = true
 var dash_distance: float = base_speed*1
+
+var platform: bool = true
+var platform_position1: float = 0
+var platform_position2: float = base_speed*1
+var platform_position3: float = base_speed*1.5
+var platform_position: float
 
 var dead: bool = false
 
@@ -46,9 +54,6 @@ func _ready():
 	
 	#connect signals
 	
-	
-	
-
 func _physics_process(delta):
 	#Add animations to running and crouching
 	
@@ -83,16 +88,16 @@ func _physics_process(delta):
 		else:
 			if Input.is_action_pressed("right"):
 				$Animation.scale.x=animationSize
-				$DashArea.position.x=dash_distance
-				$DashAreaNear.position.x=dash_distance-50
-				$DashAreaFar.position.x=dash_distance+50
-				$DashAreaHigh.position=Vector2(dash_distance-50, -150)
+				$DashArea.position.x=dash_distance; $DashAreaNear.position.x=dash_distance-50; $DashAreaFar.position.x=dash_distance+50; $DashAreaHigh.position=Vector2(dash_distance-50, -150)
+				
+				$PlatformArea1.position.x=platform_position1; $PlatformArea2.position.x=platform_position2; $PlatformArea3.position.x=platform_position3
+				
 			elif Input.is_action_pressed("left"):
 				$Animation.scale.x=-animationSize
-				$DashArea.position.x=-dash_distance
-				$DashAreaNear.position.x=-dash_distance+50
-				$DashAreaFar.position.x=-dash_distance-50
-				$DashAreaHigh.position=Vector2(-dash_distance+50, -150)
+				$DashArea.position.x=-dash_distance; $DashAreaNear.position.x=-dash_distance+50; $DashAreaFar.position.x=-dash_distance-50; $DashAreaHigh.position=Vector2(-dash_distance+50, -150)
+				
+				$PlatformArea1.position.x=-platform_position1; $PlatformArea2.position.x=-platform_position2; $PlatformArea3.position.x=-platform_position3
+				
 			velocity.x = move_toward(velocity.x, direction * base_speed, Hacceleration)
 	elif is_on_floor():		#Adds friction
 		velocity.x = move_toward(velocity.x, 0, friction)
@@ -104,7 +109,7 @@ func _physics_process(delta):
 		animate.emit("InitiateJumping")
 		
 	# Movement dash
-	if Input.is_action_just_pressed("dash") and dash==true and (velocity.x>0 or velocity.x<0):						#checks if player can dive
+	if Input.is_action_just_pressed("dash") and dash==true:											#checks if player can dive
 		if $DashArea.has_overlapping_bodies()==false or $DashAreaFar.has_overlapping_bodies()==false or $DashAreaNear.has_overlapping_bodies()==false or $DashAreaHigh.has_overlapping_bodies()==false:
 			animate.emit("Falling")
 			particles.emit($".".global_position, $DashAreaFar/DashFarCollision.global_position)
@@ -125,6 +130,21 @@ func _physics_process(delta):
 			$InvisibilityTimer.start()
 			$DashTimer.start()
 			dash=false
+			
+	if Input.is_action_just_pressed("platform") and platform==true:
+		if $PlatformArea1.has_overlapping_bodies()==false or $PlatformArea2.has_overlapping_bodies()==false or $PlatformArea3.has_overlapping_bodies()==false:
+			if $PlatformArea1.has_overlapping_bodies()==false:
+				call_platform.emit($PlatformArea1/PlatformAreaShape.global_position)
+			elif $PlatformArea2.has_overlapping_bodies()==false:
+				call_platform.emit($PlatformArea2/PlatformAreaShape.global_position)
+			elif $PlatformArea3.has_overlapping_bodies()==false:
+				call_platform.emit($PlatformArea3/PlatformAreaShape.global_position)
+
+		if !platform_position==platform_position3*2:													#if there are any openings, emit the call for the platform to change positions
+			$PlatformTimer.start()
+			platform_position=false
+		
+			
 
 	move_and_slide()
 
@@ -137,6 +157,10 @@ func _on_invisibility_timer_timeout():
 func _on_dash_timer_timeout():
 	if !dash:
 		dash=true
+
+func _on_platform_timer_timeout():
+	if !platform:
+		platform=true
 
 func _on_death_timer_timeout():
 		$".".visible=true
@@ -172,6 +196,3 @@ func dead_player():
 
 func _on_checkpoint_pos(checkpos):
 	checkpointPosition=checkpos
-
-
-

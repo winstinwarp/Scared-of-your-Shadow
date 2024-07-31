@@ -5,6 +5,8 @@ class_name HumanEnemy
 @export var can_move: bool
 @export var can_change_direction: bool
 @export var random_direction: bool
+@export var flipped: bool
+
 
 const speed = 115
 var is_human_chase: bool = false
@@ -31,7 +33,8 @@ signal death(enemyposition, playerposition)
 
 func _ready():
 	add_to_group("Enemies")
-
+	if flipped:
+		direction=-direction
 	$DirectionTimer.start()
 	$CollisionShape2D.disabled=false
 	
@@ -69,6 +72,7 @@ func _on_direction_timer_timeout():
 		direction = choose([1,-1])													#choose right or left direction based on choose function
 		is_searching=false
 	elif !is_human_chase and is_searching and can_change_direction and !random_direction:
+		$DirectionTimer.wait_time = 5
 		velocity.x = 0
 		direction=-pastdirection
 		is_searching=false
@@ -112,10 +116,10 @@ func _on_player_particles(playerposition, dashposition):
 	$LightArea/CollisionShape2D.disabled=true
 	flickerstate=true
 	flicker.emit(flickerstate)
-	if playerposition.x>$".".global_position.x and $".".global_position.x>dashposition.x and playerposition.y>$".".global_position.y-200 and playerposition.y<$".".global_position.y+200 and !dead: 		#if enemy is in between dash position and player
+	if playerposition.x>$".".global_position.x and $".".global_position.x>dashposition.x and playerposition.y>$".".global_position.y-90 and playerposition.y<$".".global_position.y+90 and !dead: 		#if enemy is in between dash position and player
 		dead=true
 		death.emit($".".global_position, playerposition)
-	elif playerposition.x<$".".global_position.x and $".".global_position.x<dashposition.x and playerposition.y>$".".global_position.y-200 and playerposition.y<$".".global_position.y+200 and !dead:
+	elif playerposition.x<$".".global_position.x and $".".global_position.x<dashposition.x and playerposition.y>$".".global_position.y-90 and playerposition.y<$".".global_position.y+90 and !dead:
 		dead=true
 		death.emit($".".global_position, playerposition)
 
