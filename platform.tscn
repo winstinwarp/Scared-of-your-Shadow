@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3c12cg51pesq"]
+[gd_scene load_steps=4 format=3 uid="uid://c3c12cg51pesq"]
 
 [ext_resource type="Script" path="res://platform.gd" id="1_ii3jm"]
+[ext_resource type="Texture2D" uid="uid://dodqkts5g4x5f" path="res://Foreground/BloodPlatform.png" id="2_7l6w0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dtml4"]
 size = Vector2(444.444, 44.4444)
@@ -9,6 +10,7 @@ size = Vector2(444.444, 44.4444)
 script = ExtResource("1_ii3jm")
 
 [node name="PlatformPolygon" type="Polygon2D" parent="."]
+visible = false
 scale = Vector2(0.45, 0.45)
 color = Color(0.533333, 0.0313726, 0.0313726, 1)
 polygon = PackedVector2Array(222.222, 22.2222, 222.222, -22.2222, -222.222, -22.2222, -222.222, 22.2222)
@@ -17,3 +19,29 @@ polygon = PackedVector2Array(222.222, 22.2222, 222.222, -22.2222, -222.222, -22.
 position = Vector2(0, 2.38419e-07)
 scale = Vector2(0.45, 0.45)
 shape = SubResource("RectangleShape2D_dtml4")
+
+[node name="PlatformTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 3
+explosiveness = 0.5
+randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(100, 5)
+gravity = Vector2(0, 450)
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+color = Color(0.436226, 0.0204263, 0.0203933, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.646808, 0.845919, 0.881613, 1)
+position = Vector2(-2.98023e-08, -5)
+rotation = 0.122541
+scale = Vector2(0.60512, 0.605121)
+texture = ExtResource("2_7l6w0")
+
+[connection signal="timeout" from="PlatformTimer" to="." method="_on_platform_timer_timeout"]
